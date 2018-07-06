@@ -1,6 +1,11 @@
 package studentCoursesBackup.util;
 
 public class InputProcessor {
+	private TreeBuilder treeBuilderObj;
+	
+	public InputProcessor(TreeBuilder treeBuilderObj) {
+		this.treeBuilderObj = treeBuilderObj;
+	}
 
 	public void parseLine(String[] dataArray) {
 		
