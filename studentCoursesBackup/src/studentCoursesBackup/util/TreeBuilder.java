@@ -1,5 +1,7 @@
 package studentCoursesBackup.util;
 
+import java.util.ArrayList;
+
 import studentCoursesBackup.myTree.Node;
 // https://algorithms.tutorialhorizon.com/binary-search-tree-complete-implementation/
 
@@ -11,21 +13,7 @@ public class TreeBuilder {
 		this.originalNode = null;
 		this.resultObj = resultObj;
 	}
-	
-	public boolean find(int id){
-		Node current = originalNode;
-		while(current!=null){
-			if(current.getbNumber()==id){
-				return true;
-			}else if(current.getbNumber()>id){
-				current = current.getLeft();
-			}else{
-				current = current.getRight();
-			}
-		}
-		return false;
-	}
-	
+		
 	public boolean delete(int id){
 		Node parent = originalNode;
 		Node current = originalNode;
@@ -107,8 +95,45 @@ public class TreeBuilder {
 		}
 		return successsor;
 	}
+
+	public boolean search(int id){
+		Node current = originalNode;
+		while(current!=null){
+			if(current.getbNumber()==id){
+				return true;
+			}else if(current.getbNumber() > id){
+				current = current.getLeft();
+			}else{
+				current = current.getRight();
+			}
+		}
+		return false;
+	}
 	
-	public void insert(int id){
+	public Node searchNode(int id){
+		Node current = originalNode;
+		while(current!=null){
+			if(current.getbNumber()==id){
+				return current;
+			}else if(current.getbNumber() > id){
+				current = current.getLeft();
+			}else{
+				current = current.getRight();
+			}
+		}
+		return null;	
+	}
+	
+	public void insert(int id, String courseName){
+		
+		Node existingNode = searchNode(id);
+		if(existingNode != null) {
+			ArrayList<String> tempList = existingNode.getCourses();
+			if(!tempList.contains(courseName))
+				tempList.add(courseName);
+			return;
+		}
+		
 		Node newNode = new Node(id);
 		if(originalNode==null){
 			originalNode = newNode;
@@ -118,7 +143,7 @@ public class TreeBuilder {
 		Node parent = null;
 		while(true){
 			parent = current;
-			if(id<current.getbNumber()){				
+			if(id < current.getbNumber()){				
 				current = current.getLeft();
 				if(current==null){
 					parent.setLeft(newNode);
@@ -134,11 +159,28 @@ public class TreeBuilder {
 		}
 	}
 	
-	public void display(Node root){
+	public void printNodes(Results result, Node root){
 		if(root!=null){
-			display(root.getLeft());
-			System.out.print(" " + root.getbNumber());
-			display(root.getRight());	
+			printNodes(result,root.getLeft());
+			root.printData(result);
+			printNodes(result,root.getRight());	
 		}
 	}
+
+	public Node getOriginalNode() {
+		return originalNode;
+	}
+
+	public void setOriginalNode(Node originalNode) {
+		this.originalNode = originalNode;
+	}
+
+	public Results getResultObj() {
+		return resultObj;
+	}
+
+	public void setResultObj(Results resultObj) {
+		this.resultObj = resultObj;
+	}
+	
 }
