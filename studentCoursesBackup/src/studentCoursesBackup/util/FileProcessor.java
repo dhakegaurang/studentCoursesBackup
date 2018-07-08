@@ -26,7 +26,7 @@ public class FileProcessor {
 		catch(IOException  e) { //handling in case of bufferedReader goes wrong
 			System.err.println("Exception: while reading input file");
 			System.out.println("Exiting...");
-			System.exit(0); 
+			System.exit(0);
 		}
 	}
 	
