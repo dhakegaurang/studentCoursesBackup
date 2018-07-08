@@ -49,10 +49,12 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 			Node tempNode = (Node) observer;
 			switch(operation) {
 			case INSERT:
-				tempNode.getCourses().add(courseName);
+				if(!tempNode.getCourses().contains(courseName))
+					tempNode.getCourses().add(courseName);
 				break;
 			case DELETE:
-				tempNode.getCourses().remove(courseName);
+				if(tempNode.getCourses().contains(courseName))
+					tempNode.getCourses().remove(courseName);
 				break;
 			}
 		}

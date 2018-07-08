@@ -8,10 +8,12 @@ public class FileProcessor {
 	private String inputFilePath;
 	private BufferedReader bReaderObj;
 	private InputProcessor inputProcessorObj;
+	private String myOperation;
 	
-	public FileProcessor(String inputFilePath, InputProcessor inputProcessorObj) {
+	public FileProcessor(String inputFilePath, InputProcessor inputProcessorObj, String myOperation) {
 		this.inputFilePath = inputFilePath;
 		this.inputProcessorObj = inputProcessorObj;
+		this.myOperation = myOperation;
 	}
 	
 	public void readLine() {
@@ -20,7 +22,7 @@ public class FileProcessor {
 		    String line;
 		    while ((line = bReaderObj.readLine()) != null) {
 		       String[] dataArray = line.split(":");
-		       inputProcessorObj.parseLine(dataArray);
+		       inputProcessorObj.parseLine(dataArray,myOperation);
 		    }
 		}
 		catch(IOException  e) { //handling in case of bufferedReader goes wrong

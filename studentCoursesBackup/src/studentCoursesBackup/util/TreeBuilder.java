@@ -23,86 +23,17 @@ public class TreeBuilder {
 		this.resultObj3 = resultObj3;
 	}
 		
-	public boolean delete(int id){
-		Node parent = originalNode;
-		Node current = originalNode;
-		boolean isLeftChild = false;
-		while(current.getbNumber()!=id){
-			parent = current;
-			if(current.getbNumber() > id){
-				isLeftChild = true;
-				current = current.getLeft();
-			}else{
-				isLeftChild = false;
-				current = current.getRight();
+	public void delete(int id, String courseName){
+		Node existingNode = searchNode(id);
+		if(existingNode != null) {
+			ArrayList<String> tempList = existingNode.getCourses();
+			if(tempList.contains(courseName)) {
+				tempList.remove(courseName);
+				existingNode.setCourseName(courseName); 
+				existingNode.notifyObservers(OPERATION.DELETE);
 			}
-			if(current ==null){
-				return false;
-			}
+			return;
 		}
-		//if i am here that means we have found the node
-		//Case 1: if node to be deleted has no children
-		if(current.getLeft()==null && current.getRight()==null){
-			if(current==originalNode){
-				originalNode = null;
-			}
-			if(isLeftChild ==true){
-				parent.setLeft(null);
-			}else{
-				parent.setRight(null);
-			}
-		}
-		//Case 2 : if node to be deleted has only one child
-		else if(current.getRight()==null){
-			if(current==originalNode){	
-				originalNode  =current.getLeft();
-			}else if(isLeftChild){
-				parent.setLeft(current.getLeft()); 
-			}else{
-				parent.setRight(current.getLeft()); 
-			}
-		}
-		else if(current.getLeft()==null){
-			if(current==originalNode){
-				originalNode = current.getRight();
-			}else if(isLeftChild){
-				parent.setLeft(current.getRight()); 
-			}else{
-				parent.setRight(current.getRight()); 
-			}
-		}else if(current.getLeft()!=null && current.getRight()!=null){
-			
-			//now we have found the minimum element in the right sub tree
-			Node successor	 = getSuccessor(current);
-			if(current==originalNode){
-				originalNode = successor;
-			}else if(isLeftChild){
-				parent.setLeft(successor);	
-			}else{
-				parent.setRight(successor); 
-			}			
-			successor.setLeft(current.getLeft()); 
-		}		
-		return true;		
-	}
-	
-	public Node getSuccessor(Node deleleNode){
-		Node successsor = null;
-		Node successsorParent = null;
-		Node current = deleleNode.getRight();
-		while(current!=null){
-			successsorParent = successsor;
-			successsor = current;
-			current = current.getLeft();
-		}
-		//check if successor has the right child, it cannot have left child for sure
-		// if it does have the right child, add it to the left of successorParent.
-//		successsorParent
-		if(successsor!=deleleNode.getRight()){
-			successsorParent.setLeft(successsor.getRight());
-			successsor.setRight(deleleNode.getRight());
-		}
-		return successsor;
 	}
 
 	public boolean search(int id){
@@ -140,6 +71,8 @@ public class TreeBuilder {
 			ArrayList<String> tempList = existingNode.getCourses();
 			if(!tempList.contains(courseName)) {
 				tempList.add(courseName);
+				existingNode.setCourseName(courseName); 
+				existingNode.notifyObservers(OPERATION.INSERT);
 			}
 			return;
 		}

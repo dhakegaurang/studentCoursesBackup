@@ -7,14 +7,18 @@ public class InputProcessor {
 		this.treeBuilderObj = treeBuilderObj;
 	}
 
-	public void parseLine(String[] dataArray) {
-		
+	public void parseLine(String[] dataArray, String myOperation) {
+			
 		try {
 			int bNumber = Integer.parseInt(dataArray[0]);
 			String subject = dataArray[1];
+			if("insert".equals(myOperation)) {
+				treeBuilderObj.insert(bNumber, subject);
+			}
+			else if("delete".equals(myOperation)) {
+				treeBuilderObj.delete(bNumber, subject);
+			}
 			
-			//System.out.println(bNumber+" "+subject); 
-			treeBuilderObj.insert(bNumber, subject);
 		}
 		catch(NumberFormatException e) {
 			System.err.println("Exception: Make sure you have entered bNumber as integer and subject as character");

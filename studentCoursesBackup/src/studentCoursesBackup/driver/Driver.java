@@ -10,6 +10,7 @@ public class Driver {
 	public static void main(String[] args) {
 
 		String inputPath = "input/input_1.txt";
+		String deletePath = "delete/delete_1.txt";
 		String outputPath1 = "output1.txt";
 		String outputPath2 = "output2.txt";
 		String outputPath3 = "output3.txt";
@@ -19,7 +20,9 @@ public class Driver {
 		Results resultObj3 = new Results(outputPath3);
 		TreeBuilder treeBuilderObj = new TreeBuilder(resultObj1,resultObj2,resultObj3);
 		InputProcessor inputProcessorObj = new InputProcessor(treeBuilderObj);
-		FileProcessor fileProcessorObj = new FileProcessor(inputPath,inputProcessorObj);
+		FileProcessor fileProcessorObj = new FileProcessor(inputPath,inputProcessorObj,"insert");
+		fileProcessorObj.readLine();
+		fileProcessorObj = new FileProcessor(deletePath,inputProcessorObj,"delete");
 		fileProcessorObj.readLine();
 		treeBuilderObj.printNodes(resultObj1, treeBuilderObj.getOriginalNode());
 		treeBuilderObj.printNodes(resultObj2, treeBuilderObj.getObserverNode1());
