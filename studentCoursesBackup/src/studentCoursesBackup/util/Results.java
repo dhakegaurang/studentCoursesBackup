@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import studentCoursesBackup.util.MyLogger.DebugLevel;
+
 public class Results implements FileDisplayInterface,StdoutDisplayInterface{
 	private String resultStr;
 	private String outputFilePath;
+	private DebugLevel debugLevel;
 	
 	public Results(String outputFilePath) {
+		this.debugLevel = debugLevel.RESULTS;
 		resultStr = "";	
 		this.outputFilePath = outputFilePath;
 	}
@@ -21,6 +25,7 @@ public class Results implements FileDisplayInterface,StdoutDisplayInterface{
 
 	@Override
 	public void writeToFile(String s) {
+		MyLogger.writeMessage("in Results writeToFile method", debugLevel);
 		try {
 			Files.write(Paths.get(outputFilePath), s.getBytes());
 		}
@@ -33,6 +38,7 @@ public class Results implements FileDisplayInterface,StdoutDisplayInterface{
 	}
 	
 	public void storeNewResult(String newResult) {
+		MyLogger.writeMessage("in Results storeNewResult method", debugLevel);
 		resultStr += newResult;
 	}
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import studentCoursesBackup.myTree.Node;
 // https://algorithms.tutorialhorizon.com/binary-search-tree-complete-implementation/
 import studentCoursesBackup.myTree.Node.OPERATION;
+import studentCoursesBackup.util.MyLogger.DebugLevel;
 import studentCoursesBackup.myTree.SubjectI;
 
 public class TreeBuilder {
@@ -13,8 +14,11 @@ public class TreeBuilder {
 	private Results resultObj1;
 	private Results resultObj2;
 	private Results resultObj3;
+	private DebugLevel debugLevel;
 	
 	public TreeBuilder(Results resultObj, Results resultObj2, Results resultObj3){
+		this.debugLevel = debugLevel.TREE_BUILDER;
+		MyLogger.writeMessage("in TreeBuilder class constructor", debugLevel);
 		this.originalNode = null;
 		this.observerNode1 = null;
 		this.observerNode2 = null;
@@ -24,6 +28,7 @@ public class TreeBuilder {
 	}
 		
 	public void delete(int id, String courseName){
+		MyLogger.writeMessage("in TreeBuilder class delete method", debugLevel);
 		Node existingNode = searchNode(id);
 		if(existingNode != null) {
 			ArrayList<String> tempList = existingNode.getCourses();
@@ -51,6 +56,7 @@ public class TreeBuilder {
 	}
 	
 	public Node searchNode(int id){
+		MyLogger.writeMessage("in TreeBuilder class searchNode method", debugLevel);
 		Node current = originalNode;
 		while(current!=null){
 			if(current.getbNumber()==id){
@@ -65,7 +71,7 @@ public class TreeBuilder {
 	}
 	
 	public void insert(int id, String courseName){
-		
+		MyLogger.writeMessage("in TreeBuilder class insert method", debugLevel);
 		Node existingNode = searchNode(id);
 		if(existingNode != null) {
 			ArrayList<String> tempList = existingNode.getCourses();
@@ -126,6 +132,7 @@ public class TreeBuilder {
 	}
 	
 	public void printNodes(Results result, Node root){
+		MyLogger.writeMessage("in TreeBuilder class printNode method", debugLevel);
 		if(root!=null){
 			printNodes(result,root.getLeft());
 			root.printData(result);

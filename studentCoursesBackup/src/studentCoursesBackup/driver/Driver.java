@@ -2,6 +2,7 @@ package studentCoursesBackup.driver;
 
 import studentCoursesBackup.util.FileProcessor;
 import studentCoursesBackup.util.InputProcessor;
+import studentCoursesBackup.util.MyLogger;
 import studentCoursesBackup.util.Results;
 import studentCoursesBackup.util.TreeBuilder;
 
@@ -18,7 +19,7 @@ public class Driver {
 		Results resultObj1 = new Results(outputPath1);
 		Results resultObj2 = new Results(outputPath2);
 		Results resultObj3 = new Results(outputPath3);
-		
+		MyLogger.setDebugValue(5);
 		TreeBuilder treeBuilderObj = new TreeBuilder(resultObj1,resultObj2,resultObj3);
 		
 		InputProcessor inputProcessorObj = new InputProcessor(treeBuilderObj);

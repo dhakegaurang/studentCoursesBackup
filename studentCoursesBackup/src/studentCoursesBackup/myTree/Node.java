@@ -2,7 +2,9 @@ package studentCoursesBackup.myTree;
 
 import java.util.ArrayList;
 
+import studentCoursesBackup.util.MyLogger;
 import studentCoursesBackup.util.Results;
+import studentCoursesBackup.util.MyLogger.DebugLevel;
 
 public class Node implements ObserverI,SubjectI,Cloneable{
 	private int bNumber;
@@ -11,11 +13,14 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 	private ArrayList<String> courses;
 	private ArrayList<ObserverI> observers;
 	private String courseName;
+	private DebugLevel debugLevel;
     public enum OPERATION {
 		INSERT, DELETE
 	}
     
 	public Node(int bNumber,String courseName){
+		this.debugLevel = debugLevel.NODE;
+		MyLogger.writeMessage("in Node class constructor", debugLevel);
 		this.bNumber = bNumber;
 		left = null;
 		right = null;
@@ -26,6 +31,7 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 	
 	@Override
 	public void registerObserver(ObserverI o) {
+		MyLogger.writeMessage("in Node class registerObserver method", debugLevel);
 		observers.add(o);
 	}
 
@@ -36,6 +42,7 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 
 	@Override
 	public void notifyObservers(OPERATION operation) {
+		MyLogger.writeMessage("in Node class notifyObservers method", debugLevel);
 		for(ObserverI observer : observers) {
 			observer.update(bNumber, courseName, operation);
 		}
@@ -44,7 +51,7 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 
 	@Override
 	public void update(int bNumber, String courseName, OPERATION operation) {
-		
+		MyLogger.writeMessage("in Node class update method", debugLevel);
 		for(ObserverI observer : observers) {
 			Node tempNode = (Node) observer;
 			switch(operation) {
@@ -61,6 +68,7 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 	}
 	
 	public void printData(Results result) {
+		MyLogger.writeMessage("in Node class printData method", debugLevel);
 		String resultStr = "BNumber:"+bNumber;
 		resultStr += "\nCourses:";
 		for(String course : courses) {
@@ -71,6 +79,7 @@ public class Node implements ObserverI,SubjectI,Cloneable{
 	}
 	
 	public Node clone() {
+		MyLogger.writeMessage("in Node class clone method", debugLevel);
 		Node node = null;
 		try {
 			node = (Node) super.clone();
