@@ -20,7 +20,7 @@ public class MyLogger{
 	   * @param levelIn this parameter decides which debugLevel to set from cmd
 	   * @return DebugLevel returns debugLevel which was set here
 	   */
-    public static DebugLevel setDebugValue (int levelIn) {
+    public static void setDebugValue (int levelIn) {
 		switch (levelIn) {
 			case 1: debugLevel = DebugLevel.FILE_PROCESSOR; break;
 			case 2: debugLevel = DebugLevel.NODE; break;
@@ -30,7 +30,6 @@ public class MyLogger{
 			default: debugLevel = DebugLevel.NONE; break;
 		}
 		
-		return debugLevel;
     }
     
     /**

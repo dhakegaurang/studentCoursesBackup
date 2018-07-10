@@ -26,20 +26,6 @@ public class TreeBuilder {
 		this.resultObj2 = resultObj2;
 		this.resultObj3 = resultObj3;
 	}
-		
-	public void delete(int id, String courseName){
-		MyLogger.writeMessage("in TreeBuilder class delete method", debugLevel);
-		Node existingNode = searchNode(id);
-		if(existingNode != null) {
-			ArrayList<String> tempList = existingNode.getCourses();
-			if(tempList.contains(courseName)) {
-				tempList.remove(courseName);
-				existingNode.setCourseName(courseName); 
-				existingNode.notifyObservers(OPERATION.DELETE);
-			}
-			return;
-		}
-	}
 
 	public boolean search(int id){
 		Node current = originalNode;
@@ -131,6 +117,20 @@ public class TreeBuilder {
 		}
 	}
 	
+	public void delete(int id, String courseName){
+		MyLogger.writeMessage("in TreeBuilder class delete method", debugLevel);
+		Node existingNode = searchNode(id);
+		if(existingNode != null) {
+			ArrayList<String> tempList = existingNode.getCourses();
+			if(tempList.contains(courseName)) {
+				tempList.remove(courseName);
+				existingNode.setCourseName(courseName); 
+				existingNode.notifyObservers(OPERATION.DELETE);
+			}
+			return;
+		}
+	}
+	
 	public void printNodes(Results result, Node root){
 		MyLogger.writeMessage("in TreeBuilder class printNode method", debugLevel);
 		if(root!=null){
@@ -187,7 +187,5 @@ public class TreeBuilder {
 	public void setObserverNode2(Node observerNode2) {
 		this.observerNode2 = observerNode2;
 	}
-
-	
 	
 }
